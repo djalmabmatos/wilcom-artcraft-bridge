@@ -1,0 +1,25 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Corel\CorelDRAW\18.0]
+"ProgramsDir"="C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\"
+"ConfigDir"="C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Config\\"
+"SuiteVersion"="18.0.0.0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Corel\CorelDRAW\18.0\IPM_CDGS\PremiumFeatures]
+"{ECFAF1D6-342D-4AE2-B6BF-82B22F9FE8DE}"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Corel\CorelDRAW\19.0]
+"ProgramsDir"="C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\"
+"ConfigDir"="C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Config\\"
+"SuiteVersion"="19.0.0.0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Corel\CorelDRAW\19.0\IPM_CDGS\PremiumFeatures]
+"{03E21392-CE4A-4FC6-B593-370E7A7E345A}"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Corel\CorelDRAW\20.0]
+"ProgramsDir"="C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Programs64\\"
+"ConfigDir"="C:\\Program Files\\Corel\\CorelDRAW Graphics Suite X7\\Config\\"
+"SuiteVersion"="20.0.0.0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Corel\CorelDRAW\20.0\IPM_CDGS\PremiumFeatures]
+"{5F18CC22-B399-48EC-BB9D-E92510E218EF}"=dword:00000001
