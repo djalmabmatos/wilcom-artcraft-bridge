@@ -1,0 +1,20 @@
+# Build & binaries
+target/
+build/
+bin/
+*.exe
+*.dll
+*.obj
+*.pdb
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+temp/
+tmp/
