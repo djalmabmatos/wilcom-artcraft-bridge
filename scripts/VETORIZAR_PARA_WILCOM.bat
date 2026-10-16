@@ -4,12 +4,12 @@ title Auto-Tracer para Wilcom EmbroideryStudio
 setlocal enabledelayedexpansion
 
 echo ======================================================================
-echo    AUTO-TRACER INTELIGENTE: IMAGEM (PIXEL) -> VETOR LIMPO PARA WILCOM
+echo    AUTO-TRACER INTELIGENTE: IMAGEM (PIXEL) PARA VETOR WILCOM
 echo ======================================================================
 echo.
 
 if "%~1"=="" (
-    echo [INSTRUCAO] Arraste uma imagem (PNG, JPG, JPEG, WEBP) para cima deste icone!
+    echo [INSTRUCAO] Arraste uma imagem (PNG, JPG, AVIF, WEBP) para cima deste icone!
     echo.
     echo Ou digite/cole o caminho da imagem abaixo:
     set /p "INPUT_FILE=Caminho da imagem: "
@@ -27,6 +27,21 @@ if not exist "!INPUT_FILE!" (
 for %%F in ("!INPUT_FILE!") do (
     set "FILE_DIR=%%~dpF"
     set "FILE_NAME=%%~nF"
+    set "FILE_EXT=%%~xF"
+)
+
+set "SOURCE_IMAGE=!INPUT_FILE!"
+
+:: Se for formato AVIF, decodifica primeiro para PNG
+if /i "!FILE_EXT!"==".avif" (
+    echo [INFO] Imagem em formato AVIF detectada. Decodificando para PNG...
+    set "SOURCE_IMAGE=!TEMP!\temp_converted_!RANDOM!.png"
+    "E:\Apps\libavif\avifdec.exe" "!INPUT_FILE!" "!SOURCE_IMAGE!" >nul 2>&1
+    if not exist "!SOURCE_IMAGE!" (
+        echo [ERRO] Falha ao decodificar arquivo AVIF.
+        pause
+        exit /b
+    )
 )
 
 set "OUT_SVG=!FILE_DIR!!FILE_NAME!_vetor.svg"
@@ -47,11 +62,11 @@ echo.
 echo [1/2] Rastreando pixels e suavizando curvas Bezier com VTracer...
 
 if "!OPT!"=="1" (
-    "E:\Apps\VTracer\vtracer.exe" --input "!INPUT_FILE!" --output "!OUT_SVG!" --mode spline --hierarchical cutout --filter-speckle 8 --simplify 2.0 --max-colors 6
+    "E:\Apps\VTracer\vtracer.exe" --input "!SOURCE_IMAGE!" --output "!OUT_SVG!" --mode spline --hierarchical cutout --filter-speckle 8 --simplify 1.8 --max-colors 6
 ) else if "!OPT!"=="2" (
-    "E:\Apps\VTracer\vtracer.exe" --input "!INPUT_FILE!" --output "!OUT_SVG!" --mode spline --preset bw --filter-speckle 8 --simplify 2.0
+    "E:\Apps\VTracer\vtracer.exe" --input "!SOURCE_IMAGE!" --output "!OUT_SVG!" --mode spline --preset bw --filter-speckle 8 --simplify 2.0
 ) else (
-    "E:\Apps\VTracer\vtracer.exe" --input "!INPUT_FILE!" --output "!OUT_SVG!" --mode spline --hierarchical cutout --filter-speckle 4 --simplify 1.2
+    "E:\Apps\VTracer\vtracer.exe" --input "!SOURCE_IMAGE!" --output "!OUT_SVG!" --mode spline --hierarchical cutout --filter-speckle 4 --simplify 1.2
 )
 
 if not exist "!OUT_SVG!" (
@@ -71,9 +86,9 @@ echo  - Arquivo SVG: "!OUT_SVG!"
 echo.
 echo  COMO USAR NO WILCOM:
 echo  1. No Wilcom, aperte Ctrl+I (Arquivo ^> Importar Grafico)
-echo  2. Selecione: "!OUT_NAME!_vetor.emf"
-echo  3. Ele vai entrar como "Objeto: Vetor" perfeito, pronto para virar
-echo     Tatami (Enchimento) ou Ponto Cheio (Satin)!
+echo  2. Selecione: "!OUT_EMF!"
+echo  3. Ele vai entrar como "Objeto: Vetor" perfeito!
+echo  4. Clique com botao direito e escolha "Converter para enchimento complexo"!
 echo ======================================================================
 echo.
 pause
